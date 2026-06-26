@@ -322,6 +322,7 @@
 
       const data = new FormData(form);
       data.delete('turnstile_token');
+      data.delete('cf-turnstile-response');
       try {
         const res = await fetch(form.action, { method: 'POST', body: data });
         const json = await res.json();
@@ -332,7 +333,7 @@
           success.classList.add('show');
           turnstile.reset();
         } else {
-          alert('Something went wrong. Please try again.');
+          alert(json.message || 'Something went wrong. Please try again.');
         }
       } catch {
         alert('Network error. Please check your connection and try again.');
